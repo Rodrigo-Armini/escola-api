@@ -1,11 +1,9 @@
-from dataclasses import dataclass, field
+
 from datetime import datetime, date
+from typing import Optional
 
 import uvicorn
-from dataclasses_json import dataclass_json
-from fastapi import FastAPI, HTTPException, status
-from fastapi.openapi.models import Response
-from fastapi.openapi.utils import status_code_ranges
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
 from starlette.middleware.cors import CORSMiddleware
 
@@ -66,23 +64,23 @@ def processar_dados_cliente(nome: str, idade: int, sobrenome: str):
 #         self.nome = nome
 #         self.sigla = sigla
 # from dataclasses import dataclass, field
-@dataclass
-class Curso:
-    id: int = field()
-    nome: str = field()
-    sigla: str = field()
+
+class Curso(BaseModel):
+    id: int = Field()
+    nome: str = Field()
+    sigla: Optional[str] = Field(default=None)
 
 
-@dataclass
-class CursoCadastro:
-    nome: str = field()
-    sigla: str = field()
+
+class CursoCadastro(BaseModel):
+    nome: str = Field()
+    sigla: str = Field()
 
 
-@dataclass
-class CursoEditar:
-    nome: str = field()
-    sigla: str = field()
+
+class CursoEditar(BaseModel):
+    nome: str = Field()
+    sigla: str = Field()
 
 
 cursos = [
